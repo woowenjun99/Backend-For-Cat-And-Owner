@@ -3,6 +3,7 @@ module github.com/wenjun99/be
 go 1.19
 
 require (
+	github.com/go-chi/chi/v5 v5.0.8 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect

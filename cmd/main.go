@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"net/http"
 	"os"
 	"time"
 
@@ -35,8 +36,12 @@ func SetConfig() {
 
 func main() {
 	SetConfig()
-	handlers.App.Test()
-	// if err := http.ListenAndServe(":8080", nil); err != nil {
-	// 	log.Println("Error starting up the server: ", err.Error())
-	// }
+	srv := http.Server{
+		Addr:    os.Getenv("PORT"),
+		Handler: Routes(),
+	}
+
+	if err := srv.ListenAndServe(); err != nil {
+		log.Fatalln("Error starting up the server", err.Error())
+	}
 }
