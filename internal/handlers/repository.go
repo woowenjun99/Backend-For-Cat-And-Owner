@@ -1,20 +1,16 @@
 package handlers
 
 import (
-	"go.mongodb.org/mongo-driver/mongo"
-
-	"context"
+	"gorm.io/gorm"
 )
 
 type AppConfig struct {
-	DB  *mongo.Client
-	ctx context.Context
+	Client *gorm.DB
 }
 
-func SetConfig(db *mongo.Client, ctx context.Context) *AppConfig {
+func SetConfig(db *gorm.DB) *AppConfig {
 	return &AppConfig{
-		DB:  db,
-		ctx: ctx,
+		Client: db,
 	}
 }
 

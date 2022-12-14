@@ -1,16 +1,14 @@
 package main
 
 import (
-	"context"
 	"log"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/wenjun99/be/internal/handlers"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func SetConfig() {
@@ -21,17 +19,15 @@ func SetConfig() {
 
 	connection_string := os.Getenv("DATABASE_URL")
 	if connection_string == "" {
-		log.Fatalln("The connection string is empty")
+		log.Fatalln("There is no connection string")
 	}
 
-	client, err := mongo.NewClient(options.Client().ApplyURI(connection_string))
+	db, err := gorm.Open(postgres.Open(connection_string), &gorm.Config{})
 	if err != nil {
-		log.Fatalln("Error connecting to the database")
+		log.Fatalln("Error connecting to the db", err.Error())
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-
-	handlers.App = handlers.SetConfig(client, ctx)
+	handlers.SetConfig(db)
 }
 
 func main() {
