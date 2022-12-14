@@ -19,3 +19,6 @@ else
         ## commit
         git add $file
     done
+
+cd cmd
+go test -v -cover
