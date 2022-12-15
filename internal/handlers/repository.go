@@ -5,12 +5,12 @@ import (
 )
 
 type AppConfig struct {
-	Client *gorm.DB
+	client *gorm.DB
 }
 
 func SetConfig(db *gorm.DB) *AppConfig {
 	return &AppConfig{
-		Client: db,
+		client: db,
 	}
 }
 

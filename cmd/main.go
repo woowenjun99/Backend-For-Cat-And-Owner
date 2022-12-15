@@ -22,7 +22,10 @@ func SetConfig() {
 		log.Fatalln("There is no connection string")
 	}
 
-	db, err := gorm.Open(postgres.Open(connection_string), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(connection_string), &gorm.Config{
+		PrepareStmt: true,
+	})
+
 	if err != nil {
 		log.Fatalln("Error connecting to the db", err.Error())
 	}

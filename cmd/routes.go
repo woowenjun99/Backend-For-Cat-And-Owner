@@ -1,31 +1,12 @@
 package main
 
 import (
-	"net/http"
-	"os"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/rs/cors"
 	"github.com/wenjun99/be/internal/handlers"
 )
-
-func Cors(next http.Handler) http.Handler {
-	cors := cors.New(cors.Options{
-		AllowedOrigins: []string{os.Getenv("DOMAIN")},
-		AllowedMethods: []string{
-			http.MethodPost,
-			http.MethodDelete,
-			http.MethodPatch,
-			http.MethodPatch,
-			http.MethodGet,
-		},
-		AllowedHeaders:   []string{"*"},
-		AllowCredentials: true,
-	})
-	return cors.Handler(next)
-}
 
 func Routes() *chi.Mux {
 	r := chi.NewRouter()
@@ -40,7 +21,7 @@ func Routes() *chi.Mux {
 
 	// Setting up the routes
 	r.Route("/event", func(r chi.Router) {
-		r.Get("/", handlers.App.Test)
+		r.Get("/", handlers.App.UpdateUser)
 	})
 
 	return r
