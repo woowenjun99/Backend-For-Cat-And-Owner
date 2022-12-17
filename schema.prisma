@@ -1,0 +1,28 @@
+generator client {
+    provider = "go run github.com/prisma/prisma-client-go"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model Event {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    category    String
+    description String
+    end         DateTime @db.Date
+    start       DateTime @db.Date
+    title       String
+    userId      String   @db.ObjectId
+}
+
+model Module {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model User {
+    id    String @id @default(auto()) @map("_id") @db.ObjectId
+    email String @unique
+    name  String
+}

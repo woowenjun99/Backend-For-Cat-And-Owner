@@ -21,7 +21,7 @@ func Routes() *chi.Mux {
 
 	// Setting up the routes
 	r.Route("/event", func(r chi.Router) {
-		r.Get("/", handlers.App.UpdateUser)
+		r.Get("/", handlers.UpdateUser)
 	})
 
 	return r
